@@ -52,7 +52,7 @@ The Xandeum Analytics Platform is an advanced, production-quality analytics dash
 Access the live application here:
 **[https://xandeum-analytics-platform-eta.vercel.app](https://xandeum-analytics-platform-eta.vercel.app)**
 
-> [!NOTE]
+> <ins>[!NOTE]</ins>
 > The Vercel deployment link will remain active until the Superteam bounty winners are announced.
 
 ---
@@ -105,38 +105,44 @@ Developing this platform involved overcoming significant technical hurdles to en
   - Official documentation provided a `localhost` RPC endpoint on port `6000`.
   - Publicly accessible, production-ready HTTPS endpoint was unavailable.
 
+- **Infrastructure Reality (Confirmed via Discord)**
+
+  - It was confirmed in the official Discord that no public RPC endpoint exists.
+  - Developers are explicitly required to host their own private pNode on a VPS.
+
 - **Browser Security Block**
   - Modern browsers block client-side connections to "unsafe ports" like `6000`.
   - Resulted in `net::ERR_UNSAFE_PORT` error, preventing direct data fetching.
 
-### 2. The Solution: A Resilient, Multi-Layered Architecture
+### 2. The Solution: Architected for Resilience
+
+**This project was proactively architected to solve the primary challenge of this bounty: the lack of a public pNode RPC endpoint.**
 
 - **Custom Next.js API Proxy**
 
-  - Implemented a server-side API proxy at `/api/proxy`.
-  - Browser makes safe requests to our API; Next.js server forwards to the pNode RPC.
-  - Bypasses port-blocking issues securely.
+  - **The Problem:** Direct browser connections to port `6000` are blocked ("unsafe port").
+  - **The Fix:** A server-side API proxy at `/api/proxy` allows the app to securely connect to **any self-hosted pNode**, completely bypassing browser security restrictions.
+
+- **Graceful 'Demo Mode'**
+
+  - **The Rationale:** To ensure a seamless review experience, even without a live endpoint.
+  - **The Behavior:** If a live connection isn't provided or fails, the application automatically falls back to simulated data, allowing the full UI/UX to be evaluated at all times.
 
 - **Dynamic RPC Input**
-
-  - Integrated a custom RPC input field for universal testability.
-  - Allows judges/users to enter custom pNode IPs (including private nodes).
-  - Empowers testing with live, functional endpoints.
-
-- **Graceful Fallback to Demo Mode**
-  - Application does not crash on connection failure (invalid IP, CORS, offline node).
-  - Falls back to "Demo Mode" with simulated data.
-  - Ensures full UI/UX capabilities can be reviewed regardless of network status.
+  - Empowers judges and developers to test with their own private nodes.
 
 ---
 
 ## Important Note for Judges
 
-> [!IMPORTANT] > **The live demo defaults to "Demo Mode"** because a stable, public pNode endpoint was not found. This is an intentional feature to guarantee a smooth review experience.
+> <ins>[!IMPORTANT]</ins> > **Proactive Architecture for Judging:**
+> The live demo defaults to **"Demo Mode"** because a stable, public pNode endpoint was not found. This was a deliberate architectural choice to guarantee a smooth review experience.
 >
-> To test with a live network, please enter your own pNode IP address (e.g., `http://YOUR_IP:6000/rpc`) into the input field at the top of the page and click "Refresh".
+> **How to Test with Live Data:**
+> Please enter your own pNode IP address (e.g., `http://YOUR_IP:6000/rpc`) into the input field at the top of the page and click "Refresh".
 >
-> **The Vercel deployment link will remain active until the Superteam bounty winners are announced.**
+> **Availability:**
+> The Vercel deployment link will remain active specifically for the duration of the judging period until the bounty results are finalized.
 
 ---
 
