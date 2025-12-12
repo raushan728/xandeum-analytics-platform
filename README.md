@@ -52,7 +52,7 @@ The Xandeum Analytics Platform is an advanced, production-quality analytics dash
 Access the live application here:
 **[https://xandeum-analytics-platform-eta.vercel.app](https://xandeum-analytics-platform-eta.vercel.app)**
 
-> <ins>[!NOTE]</ins>
+> [!NOTE]
 > The Vercel deployment link will remain active until the Superteam bounty winners are announced.
 
 ---
@@ -135,7 +135,7 @@ Developing this platform involved overcoming significant technical hurdles to en
 
 ## Important Note for Judges
 
-> <ins>[!IMPORTANT]</ins> > **Proactive Architecture for Judging:**
+> [!IMPORTANT]
 > The live demo defaults to **"Demo Mode"** because a stable, public pNode endpoint was not found. This was a deliberate architectural choice to guarantee a smooth review experience.
 >
 > **How to Test with Live Data:**
