@@ -1,36 +1,209 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<a name="readme-top"></a>
 
-## Getting Started
+<div align="center">
+  <h1 align="center">Xandeum Analytics Platform</h1>
+  <p align="center">
+    A production-grade analytics dashboard for the Xandeum network.
+    <br />
+    <a href="https://xandeum-analytics-platform-eta.vercel.app"><strong>View Live Demo »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/raushan728/xandeum-analytics-platform/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/raushan728/xandeum-analytics-platform/issues">Request Feature</a>
+  </p>
+</div>
 
-First, run the development server:
+<div align="center">
+  <img src="https://img.shields.io/badge/Next.js-black?style=flat&logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Framer_Motion-black?style=flat&logo=framer&logoColor=white" alt="Framer Motion" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white" alt="Vercel" />
+  <img src="https://img.shields.io/badge/Superteam-FF5722?style=flat" alt="Superteam" />
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Table of Contents
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. [About The Project](#about-the-project)
+2. [Live Demo](#live-demo)
+3. [Screenshots](#screenshots)
+4. [Core Features](#core-features)
+5. [Technical Challenges & Solutions](#technical-challenges--solutions)
+6. [Important Note for Judges](#important-note-for-judges)
+7. [Tech Stack](#tech-stack)
+8. [Local Installation Guide](#local-installation-guide)
+9. [Deployment](#deployment)
+10. [Acknowledgements](#acknowledgements)
+11. [Contact](#contact)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<br />
 
-## Learn More
+## About The Project
 
-To learn more about Next.js, take a look at the following resources:
+The Xandeum Analytics Platform is an advanced, production-quality analytics dashboard designed specifically for the Xandeum network. Developed as a submission for the Superteam "Build Analytics Platform for Xandeum" bounty, this tool mimics the functionality of established platforms like `validators.app` while delivering a superior user experience and resilient architecture. The primary goal is to provide a robust monitoring tool for pNodes, ensuring network transparency and easy access to validator data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Live Demo
 
-## Deploy on Vercel
+Access the live application here:
+**[https://xandeum-analytics-platform-eta.vercel.app](https://xandeum-analytics-platform-eta.vercel.app)**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> [!NOTE]
+> The Vercel deployment link will remain active until the Superteam bounty winners are announced.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Screenshots
+
+<div align="center">
+  <h3>Dark Mode</h3>
+  <img src="src/screenshots/darkMode.png" alt="Xandeum Analytics Platform - Dark Mode" width="800"/>
+  <br/><br/>
+  <h3>Light Mode</h3>
+  <img src="src/screenshots/whiteMode.png" alt="Xandeum Analytics Platform - Light Mode" width="800"/>
+</div>
+
+---
+
+## Core Features
+
+- **Real-time pNode Monitoring**
+
+  - Implements the `get-pods` pRPC method.
+  - Fetches and displays a comprehensive list of all known peer pnodes from the network.
+
+- **Advanced UI/UX with Dual-Theme System**
+
+  - Premium user interface featuring a toggleable Light and Dark theme.
+  - **Dark Theme:** Modern "cyberpunk" aesthetic with glowing elements and glassmorphism.
+  - **Light Theme:** Clean, professional, and corporate-friendly look.
+
+- **Dynamic Animations with Framer Motion**
+
+  - Interface brought to life with fluid animations.
+  - Elements animate into view on page load.
+  - Interactive components like cards feature 3D lift/tilt effects on hover.
+
+- **Fully Responsive Design**
+  - Meticulously crafted to be fully functional on all devices.
+  - Optimized for desktops, tablets, and mobile phones.
+
+---
+
+## Technical Challenges & Solutions
+
+Developing this platform involved overcoming significant technical hurdles to ensure a seamless user experience.
+
+### 1. The Challenge: Missing Public Endpoint & Browser Security
+
+- **Non-Standard Port Issue**
+
+  - Official documentation provided a `localhost` RPC endpoint on port `6000`.
+  - Publicly accessible, production-ready HTTPS endpoint was unavailable.
+
+- **Browser Security Block**
+  - Modern browsers block client-side connections to "unsafe ports" like `6000`.
+  - Resulted in `net::ERR_UNSAFE_PORT` error, preventing direct data fetching.
+
+### 2. The Solution: A Resilient, Multi-Layered Architecture
+
+- **Custom Next.js API Proxy**
+
+  - Implemented a server-side API proxy at `/api/proxy`.
+  - Browser makes safe requests to our API; Next.js server forwards to the pNode RPC.
+  - Bypasses port-blocking issues securely.
+
+- **Dynamic RPC Input**
+
+  - Integrated a custom RPC input field for universal testability.
+  - Allows judges/users to enter custom pNode IPs (including private nodes).
+  - Empowers testing with live, functional endpoints.
+
+- **Graceful Fallback to Demo Mode**
+  - Application does not crash on connection failure (invalid IP, CORS, offline node).
+  - Falls back to "Demo Mode" with simulated data.
+  - Ensures full UI/UX capabilities can be reviewed regardless of network status.
+
+---
+
+## Important Note for Judges
+
+> [!IMPORTANT] > **The live demo defaults to "Demo Mode"** because a stable, public pNode endpoint was not found. This is an intentional feature to guarantee a smooth review experience.
+>
+> To test with a live network, please enter your own pNode IP address (e.g., `http://YOUR_IP:6000/rpc`) into the input field at the top of the page and click "Refresh".
+>
+> **The Vercel deployment link will remain active until the Superteam bounty winners are announced.**
+
+---
+
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+
+- **Language:** TypeScript
+
+- **Styling:** Tailwind CSS
+
+- **UI Components:** Shadcn/UI
+
+- **Animations:** Framer Motion
+
+- **Deployment:** Vercel
+
+---
+
+## Local Installation Guide
+
+Follow these steps to set up the project locally:
+
+1.  **Clone the Repository:**
+
+    ```bash
+    git clone https://github.com/raushan728/xandeum-analytics-platform.git
+    ```
+
+2.  **Navigate to Directory:**
+
+    ```bash
+    cd xandeum-analytics-platform
+    ```
+
+3.  **Install Dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+4.  **Run Development Server:**
+
+    ```bash
+    npm run dev
+    ```
+
+5.  Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+---
+
+## Deployment
+
+The application is continuously deployed on Vercel, automatically linked to the `main` branch of the GitHub repository. Any changes pushed to the main branch are instantly reflected in the live deployment.
+
+---
+
+## Acknowledgements
+
+This project was built for the **Superteam.io "Build Analytics Platform for Xandeum" Bounty**. I would like to express my gratitude for the opportunity to work on this challenge.
+
+---
+
+## Contact
+
+If you have any questions or need further information, please feel free to reach out:
+
+- **Email:** [raushansinghrajpoot687@gmail.com](mailto:raushansinghrajpoot687@gmail.com)
+
+- **Telegram:** [@raushan_singh_29](https://t.me/raushan_singh_29)
