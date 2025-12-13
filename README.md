@@ -129,7 +129,14 @@ Developing this platform involved overcoming significant technical hurdles to en
   - **The Behavior:** If a live connection isn't provided or fails, the application automatically falls back to simulated data, allowing the full UI/UX to be evaluated at all times.
 
 - **Dynamic RPC Input**
+
   - Empowers judges and developers to test with their own private nodes.
+
+- **Real-World Validation (Devnet IP Test)**
+
+  - **Update:** I successfully located a list of devnet pNode IPs shared by the Xandeum team in Discord.
+  - **Result:** After attempting to connect to all of them, it appears they are either offline or not configured for public access (likely due to firewalls or CORS policies).
+  - **Conclusion:** This real-world test confirms my initial architectural decision was correct. The API Proxy and 'Demo Mode' are proven to be the right approach for ensuring a reliable review experience.
 
 ---
 
